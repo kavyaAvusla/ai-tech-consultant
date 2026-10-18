@@ -1,0 +1,30 @@
+{
+  "project_id": "proj-northmill-checkout",
+  "meeting_id": "mtg-b-checkout",
+  "meeting_date": "2026-10-18",
+  "consent_note": "Role-played transcript for local development. No real clients. No real meeting took place and no real people are quoted.",
+  "title": "Northmill Pottery Cooperative — checkout, notifications, payments",
+  "client": "Northmill Pottery Cooperative",
+  "platform": "membership-directory website platform",
+  "speakers": [
+    {"id": "alex", "name": "Alex Rivera", "role": "consultant"},
+    {"id": "sam", "name": "Sam Okonkwo", "role": "client", "title": "treasurer"}
+  ],
+  "turns": [
+    {"timestamp": "00:00:30", "speaker_id": "alex", "text": "This project is separate from the Lakeside directory work. Sam, you wanted to talk about selling workshop seats on the Northmill directory site."},
+    {"timestamp": "00:01:20", "speaker_id": "sam", "text": "Yes. Members already have profiles. We now want a visitor to reserve a seat in a workshop and pay before the seat is theirs. Checkout is the gap."},
+    {"timestamp": "00:02:15", "speaker_id": "sam", "text": "There are two prices, a member price and a guest price. I do not have the amounts today. Do not invent prices. The checkout has to show whichever price applies."},
+    {"timestamp": "00:03:10", "speaker_id": "alex", "text": "Member versus guest price is in scope as behavior. The amounts stay your input. Is the platform checkout something you have already turned on?"},
+    {"timestamp": "00:03:55", "speaker_id": "sam", "text": "I have never opened a payment setting. I do not know if checkout already exists. Please check. If the docs are silent, that does not mean we need custom code."},
+    {"timestamp": "00:05:00", "speaker_id": "sam", "text": "When a seat is paid for, two emails have to go out: one to the buyer and one to the potter who teaches the workshop. I do not know if order notifications already do that."},
+    {"timestamp": "00:06:05", "speaker_id": "alex", "text": "Buyer email and instructor email are the notification requirement. What should happen if the email fails?"},
+    {"timestamp": "00:06:40", "speaker_id": "sam", "text": "I have not decided. Leave the failure case as an open question. Do not promise a retry system."},
+    {"timestamp": "00:07:45", "speaker_id": "sam", "text": "The payment provider is not chosen. We are deciding between Stripe and Square. Our Stripe account does not exist yet. Square sent paperwork and we have not signed it. Nothing is connected."},
+    {"timestamp": "00:08:50", "speaker_id": "alex", "text": "Then any payment-provider integration is unverified. I will not promise Stripe or Square in a proposal. Both depend on an account you do not have today."},
+    {"timestamp": "00:09:40", "speaker_id": "sam", "text": "Correct. The provider is an external dependency, and so is the bank form our treasurer still has to file. Do not put a go-live date on this."},
+    {"timestamp": "00:10:35", "speaker_id": "sam", "text": "Make checkout smoother is the phrase the board keeps using. I am not defining smoother. Ignore it as a requirement until I can say what to change."},
+    {"timestamp": "00:11:20", "speaker_id": "alex", "text": "I will mark smoother checkout as unclear and I will not estimate it as a feature. Confirmed items are the two prices without amounts, and the two order emails. The provider stays unverified."},
+    {"timestamp": "00:12:10", "speaker_id": "sam", "text": "Yes. And do not tell the board we can take cards until you have seen that the platform supports the provider we eventually pick."},
+    {"timestamp": "00:13:00", "speaker_id": "alex", "text": "Agreed. No card-processing promise, no provider promise, and hours only until you set a rate."}
+  ]
+}

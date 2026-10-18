@@ -1,0 +1,26 @@
+{
+  "project_id": "proj-lakeside-directory",
+  "meeting_id": "mtg-c-search-followup",
+  "meeting_date": "2026-10-18",
+  "follows_meeting_id": "mtg-a-search-mobile",
+  "consent_note": "Role-played transcript for local development. No real clients. No real meeting took place and no real people are quoted.",
+  "title": "Lakeside Makers Guild — follow-up to the search meeting",
+  "client": "Lakeside Makers Guild",
+  "platform": "membership-directory website platform",
+  "speakers": [
+    {"id": "alex", "name": "Alex Rivera", "role": "consultant"},
+    {"id": "priya", "name": "Priya Shah", "role": "client", "title": "owner"}
+  ],
+  "turns": [
+    {"timestamp": "00:00:20", "speaker_id": "alex", "text": "This follow-up is the same Lakeside directory project as the search and mobile meeting. What changed?"},
+    {"timestamp": "00:01:00", "speaker_id": "priya", "text": "Add one requirement. A visitor should be able to save a shortlist of member profiles and see that shortlist again on the same phone."},
+    {"timestamp": "00:02:05", "speaker_id": "alex", "text": "A saved shortlist of member profiles. Does it have to work for guests who are not logged in?"},
+    {"timestamp": "00:02:40", "speaker_id": "priya", "text": "Yes, a visitor who is not a member. If that needs an account, stop and ask me first. I am not asking for a new social network."},
+    {"timestamp": "00:03:30", "speaker_id": "priya", "text": "Remove one feature. Drop the years-in-business filter. We are not doing that. Take it out of the scope completely."},
+    {"timestamp": "00:04:15", "speaker_id": "alex", "text": "Years in business is removed. I will not estimate it and I will not leave it as an open maybe."},
+    {"timestamp": "00:05:00", "speaker_id": "priya", "text": "The member showcase moved from April 18 to June 6. That is the date people are holding in their heads. I am not asking you to promise June 6."},
+    {"timestamp": "00:05:50", "speaker_id": "alex", "text": "I will record the change from April 18 to June 6 as your expectation, not as our delivery commitment. The proposal still will not name a delivery date."},
+    {"timestamp": "00:06:40", "speaker_id": "priya", "text": "City, category, and the mobile behavior from last time still stand. The map is still not agreed. Do not resolve the map in this meeting."},
+    {"timestamp": "00:07:20", "speaker_id": "alex", "text": "Confirmed. The shortlist is added, years in business is removed, the showcase expectation changed, and the map stays an open disagreement."}
+  ]
+}
