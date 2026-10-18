@@ -1,0 +1,111 @@
+task,case_id,model,expected,actual,passed,latency_ms,cost,failure_reason
+direct,D01,claude-haiku-5-5,https://support.brilliantdirectories.com/support/solutions/articles/5000682655-how-to-edit-the-seo-for-social-media-sharing-for-seo-templates,"To edit the Social Media Sharing section on an SEO template:
+
+1. Navigate to **My Content > SEO Templates**.
+2. Locate the relevant template and click **Customize** or **Edit**.
+3. | sources=https://support.brilliantdirectories.com/support/solutions/articles/5000682655-how-to-edit-the-seo-for-social-media-sharing-for-seo-templates",true,6535,0.000354,
+direct,D02,claude-haiku-5-5,https://support.brilliantdirectories.com/support/solutions/articles/5000682657-how-to-activate-staging-mode-coming-soon-splash-page-as-the-homepage,"To turn on Staging Mode so the Coming Soon splash page becomes your homepage:
+
+1. Go to **SETTINGS** and select **GENERAL SETTINGS**. The setting is inside the ""General"" section.
+2 | sources=https://support.brilliantdirectories.com/support/solutions/articles/5000682657-how-to-activate-staging-mode-coming-soon-splash-page-as-the-homepage",true,1679,0.000294,
+direct,D03,claude-haiku-5-5,https://support.brilliantdirectories.com/support/solutions/articles/5000682658-how-to-add-a-snippet-of-code-to-every-page-of-a-site-in-the-head-section,"To add a snippet so it appears in the HEAD of every page, go to **Settings >> Design Settings**, then open the **Custom CSS / HEAD** tab and paste your code there.
+
+Sources:
+- http | sources=https://support.brilliantdirectories.com/support/solutions/articles/5000682658-how-to-add-a-snippet-of-code-to-every-page-of-a-site-in-the-head-section",true,1704,0.000231,
+direct,D04,claude-haiku-5-5,https://support.brilliantdirectories.com/support/solutions/articles/5000682662-how-to-connect-a-subdomain,"To connect members.example.com as a Brilliant Directories website address in Domain Manager, based on the evidence:
+
+1. Open Settings > Domain Manager on the Brilliant Directories  | sources=https://support.brilliantdirectories.com/support/solutions/articles/5000682662-how-to-connect-a-subdomain",true,2926,0.000419,
+direct,D05,claude-haiku-5-5,https://support.brilliantdirectories.com/support/solutions/articles/5000682663-how-to-add-3rd-party-commenting-tools,"To add Disqus comments to a member post type, based on the evidence:
+
+1. Sign up for a Disqus account and copy the commenting code it provides.
+2. Log in to the Admin area of your  | sources=https://support.brilliantdirectories.com/support/solutions/articles/5000682663-how-to-add-3rd-party-commenting-tools",true,2232,0.000388,
+direct,D06,claude-haiku-5-5,https://support.brilliantdirectories.com/support/solutions/articles/5000682670-how-to-edit-change-default-language-of-websites,"To change the default website language under Localization settings, go to **Settings » General Settings » Localization**, then:
+
+1. Select your desired language from the **Default  | sources=https://support.brilliantdirectories.com/support/solutions/articles/5000682670-how-to-edit-change-default-language-of-websites",true,1916,0.000342,
+direct,D07,claude-haiku-5-5,https://support.brilliantdirectories.com/support/solutions/articles/5000682672-how-to-edit-the-default-search-results-radius-for-the-site,"The default search results radius is 50 miles (or kilometers, depending on your site's settings). This is the distance from the searched location within which members are displayed | sources=https://support.brilliantdirectories.com/support/solutions/articles/5000682672-how-to-edit-the-default-search-results-radius-for-the-site",true,1842,0.000303,
+direct,D08,claude-haiku-5-5,https://support.brilliantdirectories.com/support/solutions/articles/12000000520-how-to-upload-a-social-media-sharing-image-to-the-site-,"Based on the evidence, here is how to upload a social media sharing image on the homepage SEO Settings tab:
+
+1. Navigate to Content » Edit Web Pages » select the Homepage (/home UR | sources=https://support.brilliantdirectories.com/support/solutions/articles/12000000520-how-to-upload-a-social-media-sharing-image-to-the-site-,https://support.brilliantdirectories.com/support/solutions/articles/50006",true,2527,0.000454,
+direct,D09,claude-haiku-5-5,https://support.brilliantdirectories.com/support/solutions/articles/12000001016-how-to-set-a-default-social-media-image,"The default social media image setting is located at:
+
+**Admin Dashboard > General Settings > Branding > Default Social Media Image**
+
+Note that the evidence also shows the Brand I | sources=https://support.brilliantdirectories.com/support/solutions/articles/12000001016-how-to-set-a-default-social-media-image,https://support.brilliantdirectories.com/support/solutions/articles/5000682655-how-to-edi",true,2250,0.000470,
+direct,D10,claude-haiku-5-5,https://support.brilliantdirectories.com/support/solutions/articles/12000047891-how-to-delete-images-files-from-the-media-manager,"To delete an unused file from Media Manager:
+
+1. Open **My Content > Media Manager**.
+2. Locate the image or file you want to remove, hover your mouse over it, and click the trash  | sources=https://support.brilliantdirectories.com/support/solutions/articles/12000047891-how-to-delete-images-files-from-the-media-manager",true,1725,0.000326,
+multi-article,M01,claude-haiku-5-5,https://support.brilliantdirectories.com/support/solutions/articles/12000000520-how-to-upload-a-social-media-sharing-image-to-the-site-|https://support.brilliantdirectories.com/support/solutions/articles/12000074847-how-to-set-the-social-share-image-for-member-profiles,"**Member profiles:**
+Website administrators can set a custom social share image for individual members:
+1. Go to Members → Search Members.
+2. Locate the member and click Quick Edit | sources=https://support.brilliantdirectories.com/support/solutions/articles/12000074847-how-to-set-the-social-share-image-for-member-profiles",true,2072,0.000387,
+multi-article,M02,claude-haiku-5-5,https://support.brilliantdirectories.com/support/solutions/articles/12000047891-how-to-delete-images-files-from-the-media-manager|https://support.brilliantdirectories.com/support/solutions/articles/12000047933-how-to-rename-images-files-from-the-media-manager,"**To rename a file in Media Manager:**
+1. Open **My Content > Media Manager**.
+2. Locate the image or file, hover over it, and click the **pencil icon**.
+3. Enter the new name usin | sources=https://support.brilliantdirectories.com/support/solutions/articles/12000047933-how-to-rename-images-files-from-the-media-manager,https://support.brilliantdirectories.com/support/solutions/articles/12000047891",true,2185,0.000465,
+multi-article,M03,claude-haiku-5-5,https://support.brilliantdirectories.com/support/solutions/articles/12000091045-how-to-change-the-image-upload-size|https://support.brilliantdirectories.com/support/solutions/articles/12000097799-how-to-enable-stock-photos-for-single-image-posts,"**Changing the image upload size for Single-Image Posts**
+
+1. In your admin dashboard, go to **Settings > Advanced Settings**.
+2. Find the **File Upload** section and locate the ** | sources=https://support.brilliantdirectories.com/support/solutions/articles/12000091045-how-to-change-the-image-upload-size,https://support.brilliantdirectories.com/support/solutions/articles/12000097799-how-to-enable",true,2496,0.000441,
+screenshot-only,S01,claude-haiku-5-5,https://support.brilliantdirectories.com/support/solutions/articles/12000109387-how-to-add-custom-fields-to-the-manage-images-form,"The profile name in the left sidebar of the Waterfalls album ""Upload Photos"" screenshot is **Johnny Cook**.
+
+Source:
+- https://support.brilliantdirectories.com/support/solutions/ar | sources=https://support.brilliantdirectories.com/support/solutions/articles/12000109387-how-to-add-custom-fields-to-the-manage-images-form,https://support.brilliantdirectories.com/support/solutions/articles/1200009104",true,1241,0.000265,
+screenshot-only,S02,claude-haiku-5-5,https://support.brilliantdirectories.com/support/solutions/articles/12000050864-how-to-post-images-on-wysiwyg-editors,"When the upload is complete, click the **""Return to files list""** button. This is stated in the instructional text beneath the upload area in the Media Manager screenshot from the  | sources=https://support.brilliantdirectories.com/support/solutions/articles/12000050864-how-to-post-images-on-wysiwyg-editors",true,1546,0.000265,
+screenshot-only,S03,claude-haiku-5-5,https://support.brilliantdirectories.com/support/solutions/articles/12000109959-how-to-capture-a-har-file-and-console-screenshot-for-support,"The sample ""FROM"" email address visible in the admin settings screenshot is **info@samplesite.com**, shown in the ""Website 'FROM' Email Address"" field.
+
+Source: https://support.bri | sources=https://support.brilliantdirectories.com/support/solutions/articles/12000109959-how-to-capture-a-har-file-and-console-screenshot-for-support",true,1420,0.000242,
+no-answer,N01,claude-haiku-5-5,,"not enough evidence | sources=https://support.brilliantdirectories.com/support/solutions/articles/5000682662-how-to-connect-a-subdomain,https://support.brilliantdirectories.com/support/solutions/articles/12000109959-how-to-capture-a-har-file-and-console-screenshot-for-support,https://support.brilliantdirectories.com/support/solutions/articles/5000682655-how-to-edit-the-seo-for-social-media-sharing",true,23,0.000000,
+no-answer,N02,claude-haiku-5-5,,"not enough evidence | sources=https://support.brilliantdirectories.com/support/solutions/articles/5000682657-how-to-activate-staging-mode-coming-soon-splash-page-as-the-homepage,https://support.brilliantdirectories.com/support/solutions/articles/5000682655-how-to-edit-the-seo-for-social-media-sharing-for-seo-templates,https://support.brilliantdirectories.com/support/solutions/articles/12000109959-",true,15,0.000000,
+out-of-scope,N03,claude-haiku-5-5,,"not enough evidence | sources=https://support.brilliantdirectories.com/support/solutions/articles/5000682657-how-to-activate-staging-mode-coming-soon-splash-page-as-the-homepage,https://support.brilliantdirectories.com/support/solutions/articles/5000682655-how-to-edit-the-seo-for-social-media-sharing-for-seo-templates,https://support.brilliantdirectories.com/support/solutions/articles/5000682662-h",true,13,0.000000,
+no-answer,N04,claude-haiku-5-5,,"not enough evidence | sources=https://support.brilliantdirectories.com/support/solutions/articles/5000682662-how-to-connect-a-subdomain,https://support.brilliantdirectories.com/support/solutions/articles/12000109959-how-to-capture-a-har-file-and-console-screenshot-for-support,https://support.brilliantdirectories.com/support/solutions/articles/5000682655-how-to-edit-the-seo-for-social-media-sharing",true,61,0.000000,
+direct,D01,claude-sonnet-5-5,https://support.brilliantdirectories.com/support/solutions/articles/5000682655-how-to-edit-the-seo-for-social-media-sharing-for-seo-templates,"You edit the Social Media Sharing section from the SEO Settings tab of the template:
+
+1. Go to **My Content > SEO Templates**.
+2. Find the template you want and click **Customize** | sources=https://support.brilliantdirectories.com/support/solutions/articles/5000682655-how-to-edit-the-seo-for-social-media-sharing-for-seo-templates",true,2937,0.007096,
+direct,D02,claude-sonnet-5-5,https://support.brilliantdirectories.com/support/solutions/articles/5000682657-how-to-activate-staging-mode-coming-soon-splash-page-as-the-homepage,"To turn on Staging Mode so the ""Coming Soon"" splash page shows as your homepage:
+
+1. Go to **Settings** and select **General Settings**.
+2. Inside the **General** section, find the | sources=https://support.brilliantdirectories.com/support/solutions/articles/5000682657-how-to-activate-staging-mode-coming-soon-splash-page-as-the-homepage",true,2998,0.006362,
+direct,D03,claude-sonnet-5-5,https://support.brilliantdirectories.com/support/solutions/articles/5000682658-how-to-add-a-snippet-of-code-to-every-page-of-a-site-in-the-head-section,"Paste the snippet in your site's admin under **Settings >> Design Settings**, on the **Custom CSS / HEAD** tab, in the ""Add Custom CSS / HEAD Code"" section. Code added there is pla | sources=https://support.brilliantdirectories.com/support/solutions/articles/5000682658-how-to-add-a-snippet-of-code-to-every-page-of-a-site-in-the-head-section",true,2365,0.004362,
+direct,D04,claude-sonnet-5-5,https://support.brilliantdirectories.com/support/solutions/articles/5000682662-how-to-connect-a-subdomain,"To connect a subdomain like members.example.com as the primary address of a Brilliant Directories website:
+
+1. Open **Settings > Domain Manager** on the Brilliant Directories websi | sources=https://support.brilliantdirectories.com/support/solutions/articles/5000682662-how-to-connect-a-subdomain",true,4512,0.009052,
+direct,D05,claude-sonnet-5-5,https://support.brilliantdirectories.com/support/solutions/articles/5000682663-how-to-add-3rd-party-commenting-tools,"To add Disqus comments to a member post type, follow these steps from the evidence:
+
+**Before you start:** Sign up for a commenting platform such as Disqus. Once your account is cr | sources=https://support.brilliantdirectories.com/support/solutions/articles/5000682663-how-to-add-3rd-party-commenting-tools",true,4022,0.008704,
+direct,D06,claude-sonnet-5-5,https://support.brilliantdirectories.com/support/solutions/articles/5000682670-how-to-edit-change-default-language-of-websites,"To change the default website language under Localization settings:
+
+1. Go to **Settings » General Settings » Localization**.
+2. Find the **Default Website Language** dropdown and  | sources=https://support.brilliantdirectories.com/support/solutions/articles/5000682670-how-to-edit-change-default-language-of-websites",true,2759,0.006942,
+direct,D07,claude-sonnet-5-5,https://support.brilliantdirectories.com/support/solutions/articles/5000682672-how-to-edit-the-default-search-results-radius-for-the-site,"**Default radius:** 50 miles (or kilometers, depending on your site's settings). When a user searches for a specific location, all members within that radius of the searched locati | sources=https://support.brilliantdirectories.com/support/solutions/articles/5000682672-how-to-edit-the-default-search-results-radius-for-the-site",true,2678,0.006508,
+direct,D08,claude-sonnet-5-5,https://support.brilliantdirectories.com/support/solutions/articles/12000000520-how-to-upload-a-social-media-sharing-image-to-the-site-,"Here's how to upload a social media sharing image on the homepage SEO Settings tab:
+
+**Steps**
+
+1. Navigate to **Content » Edit Web Pages » Select Homepage** (the `/home` URL). In  | sources=https://support.brilliantdirectories.com/support/solutions/articles/12000000520-how-to-upload-a-social-media-sharing-image-to-the-site-,https://support.brilliantdirectories.com/support/solutions/articles/50006",true,4032,0.009870,
+direct,D09,claude-sonnet-5-5,https://support.brilliantdirectories.com/support/solutions/articles/12000001016-how-to-set-a-default-social-media-image,"The default social media image is set in your Admin Dashboard under **General Settings > Branding > Default Social Media Image**.
+
+The article's screenshot shows this under the **B | sources=https://support.brilliantdirectories.com/support/solutions/articles/12000001016-how-to-set-a-default-social-media-image,https://support.brilliantdirectories.com/support/solutions/articles/5000682655-how-to-edi",true,4648,0.011608,
+direct,D10,claude-sonnet-5-5,https://support.brilliantdirectories.com/support/solutions/articles/12000047891-how-to-delete-images-files-from-the-media-manager,"To delete an unused file from Media Manager:
+
+1. Go to **My Content > Media Manager**.
+2. Find the image or file you want to delete, hover your mouse over it, and click the **trash | sources=https://support.brilliantdirectories.com/support/solutions/articles/12000047891-how-to-delete-images-files-from-the-media-manager",true,2479,0.006642,
+multi-article,M01,claude-sonnet-5-5,https://support.brilliantdirectories.com/support/solutions/articles/12000000520-how-to-upload-a-social-media-sharing-image-to-the-site-|https://support.brilliantdirectories.com/support/solutions/articles/12000074847-how-to-set-the-social-share-image-for-member-profiles,"The evidence covers **member profiles** but does not include instructions for setting the **site homepage** social sharing image. I don't have enough evidence to answer that part,  | sources=https://support.brilliantdirectories.com/support/solutions/articles/12000074847-how-to-set-the-social-share-image-for-member-profiles",true,4715,0.009712,
+multi-article,M02,claude-sonnet-5-5,https://support.brilliantdirectories.com/support/solutions/articles/12000047891-how-to-delete-images-files-from-the-media-manager|https://support.brilliantdirectories.com/support/solutions/articles/12000047933-how-to-rename-images-files-from-the-media-manager,"Both actions start in the same place: **My Content > Media Manager**.
+
+## Delete a file
+1. Open **My Content > Media Manager**.
+2. Find the image or file, hover over it, and click  | sources=https://support.brilliantdirectories.com/support/solutions/articles/12000047933-how-to-rename-images-files-from-the-media-manager,https://support.brilliantdirectories.com/support/solutions/articles/12000047891",true,3730,0.010388,
+multi-article,M03,claude-sonnet-5-5,https://support.brilliantdirectories.com/support/solutions/articles/12000091045-how-to-change-the-image-upload-size|https://support.brilliantdirectories.com/support/solutions/articles/12000097799-how-to-enable-stock-photos-for-single-image-posts,"## Changing the image upload size for single-image posts
+
+Single-Image Posts are post types that let users add one image, such as Articles or Events. The default upload limit is 10 | sources=https://support.brilliantdirectories.com/support/solutions/articles/12000091045-how-to-change-the-image-upload-size,https://support.brilliantdirectories.com/support/solutions/articles/12000097799-how-to-enable",true,4720,0.010896,
+screenshot-only,S01,claude-sonnet-5-5,https://support.brilliantdirectories.com/support/solutions/articles/12000109387-how-to-add-custom-fields-to-the-manage-images-form,"The profile name in the left sidebar of that screenshot is **Johnny Cook**. The sidebar also shows ""Member ID #44841"" and ""Plan: Premium,"" and the album name bar reads ""Waterfalls"" | sources=https://support.brilliantdirectories.com/support/solutions/articles/12000109387-how-to-add-custom-fields-to-the-manage-images-form,https://support.brilliantdirectories.com/support/solutions/articles/1200009104",true,1807,0.005706,
+screenshot-only,S02,claude-sonnet-5-5,https://support.brilliantdirectories.com/support/solutions/articles/12000050864-how-to-post-images-on-wysiwyg-editors,"According to the screenshot description, the instructional text beneath the upload area says: ""When the upload is complete, click the 'Return to files list' button.""
+
+(The ""Back to | sources=https://support.brilliantdirectories.com/support/solutions/articles/12000050864-how-to-post-images-on-wysiwyg-editors",true,1951,0.005718,
+screenshot-only,S03,claude-sonnet-5-5,https://support.brilliantdirectories.com/support/solutions/articles/12000109959-how-to-capture-a-har-file-and-console-screenshot-for-support,"The sample FROM email address visible in the admin settings screenshot is **info@samplesite.com**. It appears in the ""Website 'FROM' Email Address"" field. The same screenshot's hel | sources=https://support.brilliantdirectories.com/support/solutions/articles/12000109959-how-to-capture-a-har-file-and-console-screenshot-for-support",true,2121,0.005678,
+no-answer,N01,claude-sonnet-5-5,,"not enough evidence | sources=https://support.brilliantdirectories.com/support/solutions/articles/5000682662-how-to-connect-a-subdomain,https://support.brilliantdirectories.com/support/solutions/articles/12000109959-how-to-capture-a-har-file-and-console-screenshot-for-support,https://support.brilliantdirectories.com/support/solutions/articles/5000682655-how-to-edit-the-seo-for-social-media-sharing",true,21,0.000000,
+no-answer,N02,claude-sonnet-5-5,,"not enough evidence | sources=https://support.brilliantdirectories.com/support/solutions/articles/5000682657-how-to-activate-staging-mode-coming-soon-splash-page-as-the-homepage,https://support.brilliantdirectories.com/support/solutions/articles/5000682655-how-to-edit-the-seo-for-social-media-sharing-for-seo-templates,https://support.brilliantdirectories.com/support/solutions/articles/12000109959-",true,13,0.000000,
+out-of-scope,N03,claude-sonnet-5-5,,"not enough evidence | sources=https://support.brilliantdirectories.com/support/solutions/articles/5000682657-how-to-activate-staging-mode-coming-soon-splash-page-as-the-homepage,https://support.brilliantdirectories.com/support/solutions/articles/5000682655-how-to-edit-the-seo-for-social-media-sharing-for-seo-templates,https://support.brilliantdirectories.com/support/solutions/articles/5000682662-h",true,13,0.000000,
+no-answer,N04,claude-sonnet-5-5,,"not enough evidence | sources=https://support.brilliantdirectories.com/support/solutions/articles/5000682662-how-to-connect-a-subdomain,https://support.brilliantdirectories.com/support/solutions/articles/12000109959-how-to-capture-a-har-file-and-console-screenshot-for-support,https://support.brilliantdirectories.com/support/solutions/articles/5000682655-how-to-edit-the-seo-for-social-media-sharing",true,18,0.000000,
