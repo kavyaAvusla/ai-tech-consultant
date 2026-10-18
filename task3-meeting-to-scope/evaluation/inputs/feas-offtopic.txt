@@ -1,0 +1,2 @@
+Requirement REQ-002: Do not add a map to the search results.
+Knowledge evidence: strong. Answer: The articles describe a default search radius setting. They do not discuss a map on search results. Sources: one support article about search radius.

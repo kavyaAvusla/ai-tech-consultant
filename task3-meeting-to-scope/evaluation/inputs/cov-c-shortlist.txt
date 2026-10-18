@@ -1,0 +1,2 @@
+[00:01:00] Priya Shah: Add one requirement. A visitor should be able to save a shortlist of member profiles and see that shortlist again on the same phone.
+[00:02:40] Priya Shah: Yes, a visitor who is not a member. If that needs an account, stop and ask me first.

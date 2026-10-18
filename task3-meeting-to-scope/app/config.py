@@ -12,6 +12,19 @@ DB_PATH = DATA_DIR / "meeting_scope.sqlite"
 SECTION_WINDOW = 10
 SECTION_OVERLAP = 3
 KB_TIMEOUT_SECONDS = float(os.getenv("KB_TIMEOUT_SECONDS", "90"))
+HAIKU_INPUT_PER_M = 0.10
+HAIKU_OUTPUT_PER_M = 0.50
+SONNET_INPUT_PER_M = 2.0
+SONNET_OUTPUT_PER_M = 10.0
+
+
+def token_cost_usd(model: str, input_tokens: int, output_tokens: int) -> float:
+    name = (model or "").lower()
+    if "sonnet" in name:
+        rate_in, rate_out = SONNET_INPUT_PER_M, SONNET_OUTPUT_PER_M
+    else:
+        rate_in, rate_out = HAIKU_INPUT_PER_M, HAIKU_OUTPUT_PER_M
+    return (input_tokens or 0) / 1_000_000 * rate_in + (output_tokens or 0) / 1_000_000 * rate_out
 
 
 def _parse_env(path: Path) -> dict[str, str]:

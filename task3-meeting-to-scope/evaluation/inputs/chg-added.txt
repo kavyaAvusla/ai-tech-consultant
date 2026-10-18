@@ -1,0 +1,3 @@
+Approved baseline topics: city filter, category filter, map unresolved, workshops unclear, mobile results, tap targets, years-in-business filter, homepage redesign out of scope, language filter unclear.
+Follow-up: A visitor should be able to save a shortlist of member profiles.
+What change is the shortlist relative to the baseline? Reply with change set to added, removed, or modified.

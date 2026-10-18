@@ -1,0 +1,2 @@
+[00:02:48] Priya Shah: I think city and member category can be turned on there. Those two are must-haves.
+Write acceptance criteria only for the city filter. A criterion is testable when a reviewer can observe pass or fail.

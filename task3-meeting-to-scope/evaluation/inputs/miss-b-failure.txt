@@ -1,0 +1,2 @@
+[00:06:05] Alex Rivera: What should happen if the email fails?
+[00:06:40] Sam Okonkwo: I have not decided. Leave the failure case as an open question. Do not promise a retry system.

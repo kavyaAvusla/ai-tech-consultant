@@ -1,0 +1,2 @@
+Estimate this one requirement. hourly_rate is null. Return low_hours, likely_hours, high_hours.
+REQ-001 confirmed include: Members can narrow the directory by city, using an existing setting if one already does that.

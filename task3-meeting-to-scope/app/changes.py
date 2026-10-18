@@ -37,6 +37,7 @@ def compare_to_baseline(
     followup: list[Requirement],
     decisions: list,
     questions: list[OpenQuestion],
+    transcript_text: str = "",
 ) -> dict:
     """Match on topic_key and keep the approved requirement ids."""
     by_topic = {row["topic_key"]: row for row in baseline}
@@ -121,13 +122,20 @@ def compare_to_baseline(
             )
 
     assumptions = []
-    for decision in decisions:
-        if _DATE.search(decision.description) or _DATE.search(decision.source_quote):
-            assumptions.append(
-                "The client changed the event they have in mind. That is their expectation, not a delivery commitment."
-            )
-            break
-    open_questions = [question.question for question in questions if question.reason in {"contradiction", "unclear"}]
+    delivery = _delivery_change(decisions, followup, transcript_text)
+    if delivery is not None:
+        modified.append(delivery)
+        assumptions.append(
+            "The client changed the delivery-date expectation. That remains the client's expectation, not a delivery commitment."
+        )
+        open_questions_extra = [
+            "Open question: the client changed the delivery-date expectation. The reviewer must confirm that expectation. It must not be treated as our delivery commitment."
+        ]
+    else:
+        open_questions_extra = []
+    open_questions = open_questions_extra + [
+        question.question for question in questions if question.reason in {"contradiction", "unclear"}
+    ]
     for row in unresolved:
         open_questions.append(f"{row['id']} remains unresolved: {row['description']}")
 
@@ -140,6 +148,38 @@ def compare_to_baseline(
         "assumptions": assumptions,
         "open_questions": open_questions,
         "extra_quotation": [row for row in added if row["extra_quotation"]],
+    }
+
+
+def _delivery_change(decisions: list, followup: list[Requirement], transcript_text: str = "") -> dict | None:
+    """A changed client expectation is a modification. Do not write a date that was not spoken."""
+    quote = ""
+    for decision in decisions:
+        blob = f"{decision.description} {decision.source_quote}"
+        if _DATE.search(decision.source_quote) and re.search(r"moved|changed|change", blob, re.IGNORECASE):
+            quote = decision.source_quote.strip()
+            break
+    if not quote:
+        for item in followup:
+            blob = f"{item.description} {item.source_quote}"
+            if _DATE.search(item.source_quote) and re.search(r"moved|changed|change", blob, re.IGNORECASE):
+                quote = item.source_quote.strip()
+                break
+    if not quote and transcript_text:
+        for line in transcript_text.splitlines():
+            if _DATE.search(line) and re.search(r"moved|changed|change", line, re.IGNORECASE):
+                quote = line.strip()
+                break
+    if not quote:
+        return None
+    return {
+        "id": "EXP-DATE",
+        "topic_key": "delivery_expectation",
+        "description": "The client changed the delivery-date expectation.",
+        "before": {"description": "Approved baseline: a client event expectation, not a delivery commitment."},
+        "after": {"description": "Follow-up: the client changed that expectation. It is still not a delivery commitment."},
+        "source_quote": quote,
+        "client_expectation": True,
     }
 
 
@@ -206,7 +246,13 @@ def run_followup(name: str) -> dict:
                 step.agent, step.step, step.prompt_version,
                 step.model_input, step.model_output, step.validation,
             )
-        report = compare_to_baseline(baseline["requirements"], analyst.requirements, analyst.decisions, analyst.open_questions)
+        report = compare_to_baseline(
+            baseline["requirements"],
+            analyst.requirements,
+            analyst.decisions,
+            analyst.open_questions,
+            transcript_text="\n".join(turn.text for turn in transcript.turns),
+        )
         revised_rows = apply_changes(baseline["requirements"], report)
         affected_ids = {row["id"] for row in report["added"] + report["modified"]}
         affected = [Requirement.model_validate(row) for row in revised_rows if row["id"] in affected_ids]

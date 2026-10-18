@@ -1,0 +1,2 @@
+[00:05:00] Sam Okonkwo: When a seat is paid for, two emails have to go out: one to the buyer and one to the potter who teaches the workshop. I do not know if order notifications already do that.
+[00:06:05] Alex Rivera: Buyer email and instructor email are the notification requirement.

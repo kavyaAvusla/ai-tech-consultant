@@ -1,0 +1,18 @@
+{
+  "project_id": "eval-only",
+  "meeting_id": "mtg-e-vague",
+  "meeting_date": "2026-10-18",
+  "consent_note": "Role-played transcript for local development. No real clients. Test-only. No real meeting took place.",
+  "title": "Test-only meeting E — vague ask",
+  "client": "Test-only Guild",
+  "platform": "membership-directory website platform",
+  "speakers": [
+    {"id": "alex", "name": "Alex Rivera", "role": "consultant"},
+    {"id": "nina", "name": "Nina Brooks", "role": "client", "title": "owner"}
+  ],
+  "turns": [
+    {"timestamp": "00:00:15", "speaker_id": "nina", "text": "Just make the directory better. I cannot say what better means yet."},
+    {"timestamp": "00:00:50", "speaker_id": "nina", "text": "One concrete thing: the search box must stay visible while the visitor scrolls the results."},
+    {"timestamp": "00:01:20", "speaker_id": "alex", "text": "The vague improvement stays unclear. The sticky search box is the explicit request."}
+  ]
+}

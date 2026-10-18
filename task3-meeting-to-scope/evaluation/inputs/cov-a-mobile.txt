@@ -1,0 +1,2 @@
+[00:09:20] Jordan Hale: When I open filters on my phone, the panel covers the results. I cannot see the members until I close it. The results have to stay visible while the filters are open.
+[00:10:05] Priya Shah: Yes. That is the mobile behavior we want.

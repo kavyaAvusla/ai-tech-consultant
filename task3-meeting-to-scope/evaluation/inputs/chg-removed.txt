@@ -1,0 +1,3 @@
+Approved baseline includes a years-in-business filter marked unclear.
+Follow-up: Drop the years-in-business filter. We are not doing that. Take it out of the scope completely.
+What change is that relative to the baseline? Reply with change set to added, removed, or modified.

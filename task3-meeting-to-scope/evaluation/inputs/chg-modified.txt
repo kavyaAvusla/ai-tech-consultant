@@ -1,0 +1,3 @@
+Approved baseline recorded the client's event expectation and said it was not a delivery commitment.
+Follow-up: the client says the showcase date they have in mind has moved. They are not asking for a promised delivery date.
+What change is the delivery-date expectation? Reply with change set to added, removed, or modified. Do not invent a date.
