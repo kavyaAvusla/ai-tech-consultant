@@ -4,11 +4,11 @@ import { z } from "zod";
 import { TASK_ROOT } from "../env.js";
 import { PROMPT_VERSION } from "./version.js";
 
-export function loadPrompt(name: "classify" | "draft" | "claims"): string {
-  const filePath = path.join(TASK_ROOT, "prompts", PROMPT_VERSION, `${name}.txt`);
+export function loadPrompt(name: "classify" | "draft" | "claims", version = PROMPT_VERSION): string {
+  const filePath = path.join(TASK_ROOT, "prompts", version, `${name}.txt`);
   const text = readFileSync(filePath, "utf8").trim();
   if (text.length < 20) {
-    throw new Error(`Prompt ${PROMPT_VERSION}/${name} is empty.`);
+    throw new Error(`Prompt ${version}/${name} is empty.`);
   }
   return text;
 }

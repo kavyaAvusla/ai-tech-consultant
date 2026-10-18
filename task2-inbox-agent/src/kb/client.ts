@@ -1,3 +1,6 @@
+import { request as httpRequest } from "node:http";
+import { request as httpsRequest } from "node:https";
+import type { IncomingMessage } from "node:http";
 import type { AppEnv } from "../env.js";
 
 export type KbSuccess = {
@@ -36,7 +39,8 @@ type QueryPayload = {
   detail?: unknown;
 };
 
-const DEFAULT_TIMEOUT_MS = 90_000;
+const DEFAULT_TIMEOUT_MS = 30_000;
+const ATTEMPTS = 2;
 
 function asSources(value: unknown): string[] {
   if (!Array.isArray(value)) return [];
@@ -77,28 +81,99 @@ export async function queryKnowledge(
     };
   }
 
-  let response: Response;
-  try {
-    response = await fetch(`${env.kbApiUrl}/query`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-API-Key": env.kbApiKey,
+  let last = timeoutFailure(timeoutMs);
+  for (let attempt = 1; attempt <= ATTEMPTS; attempt += 1) {
+    const result = await queryOnce(env, trimmed, timeoutMs);
+    if (result.ok) return result;
+    last = result;
+    if (result.failure !== "timeout" && result.failure !== "network") return result;
+  }
+  return last;
+}
+
+function timeoutFailure(timeoutMs: number): KbFailure {
+  return {
+    ok: false,
+    failure: "timeout",
+    status: null,
+    message: `Knowledge Brain did not respond within ${timeoutMs}ms.`,
+    sources: [],
+  };
+}
+
+type HttpResponse = { status: number; raw: string };
+
+function postJson(
+  url: string,
+  apiKey: string,
+  question: string,
+  timeoutMs: number,
+): { promise: Promise<HttpResponse>; cancel: () => void } {
+  const body = JSON.stringify({ question });
+  const target = new URL(url);
+  const send = target.protocol === "https:" ? httpsRequest : httpRequest;
+  let response: IncomingMessage | undefined;
+  let cancel = () => undefined;
+  const promise = new Promise<HttpResponse>((resolve, reject) => {
+    const req = send(
+      target,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Content-Length": Buffer.byteLength(body),
+          "X-API-Key": apiKey,
+        },
+        timeout: timeoutMs,
       },
-      body: JSON.stringify({ question: trimmed }),
-      signal: AbortSignal.timeout(timeoutMs),
+      (res: IncomingMessage) => {
+        response = res;
+        const chunks: Buffer[] = [];
+        const bodyTimer = setTimeout(() => {
+          res.destroy(new Error("timeout"));
+        }, timeoutMs);
+        res.on("data", (chunk: Buffer) => chunks.push(chunk));
+        res.on("end", () => {
+          clearTimeout(bodyTimer);
+          resolve({ status: res.statusCode ?? 0, raw: Buffer.concat(chunks).toString("utf8") });
+        });
+        res.on("error", (error: Error) => {
+          clearTimeout(bodyTimer);
+          reject(error);
+        });
+      },
+    );
+    cancel = () => {
+      req.destroy();
+      response?.destroy();
+    };
+    req.on("timeout", () => {
+      req.destroy();
+      reject(new Error("timeout"));
     });
+    req.on("error", reject);
+    req.end(body);
+  });
+  return { promise, cancel };
+}
+
+async function queryOnce(env: AppEnv, question: string, timeoutMs: number): Promise<KbResult> {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const call = postJson(`${env.kbApiUrl}/query`, env.kbApiKey, question, timeoutMs);
+  const deadline = new Promise<never>((_, reject) => {
+    timer = setTimeout(() => {
+      call.cancel();
+      reject(new Error("timeout"));
+    }, timeoutMs);
+  });
+  try {
+    const response = await Promise.race([call.promise, deadline]);
+    return interpretResponse(response.status, response.raw);
   } catch (error) {
-    const name = error instanceof Error ? error.name : "";
-    if (name === "TimeoutError" || name === "AbortError") {
-      return {
-        ok: false,
-        failure: "timeout",
-        status: null,
-        message: `Knowledge Brain did not respond within ${timeoutMs}ms.`,
-        sources: [],
-      };
-    }
+    call.cancel();
+    call.promise.catch(() => undefined);
+    const message = error instanceof Error ? error.message : "";
+    if (/timeout/i.test(message)) return timeoutFailure(timeoutMs);
     return {
       ok: false,
       failure: "network",
@@ -106,9 +181,12 @@ export async function queryKnowledge(
       message: "Knowledge Brain could not be reached.",
       sources: [],
     };
+  } finally {
+    if (timer) clearTimeout(timer);
   }
+}
 
-  const raw = await response.text();
+function interpretResponse(status: number, raw: string): KbResult {
   let payload: QueryPayload | null = null;
   if (raw.trim().length > 0) {
     try {
@@ -118,31 +196,31 @@ export async function queryKnowledge(
     }
   }
 
-  if (response.status === 401) {
+  if (status === 401) {
     return {
       ok: false,
       failure: "unauthorized",
-      status: 401,
+      status,
       message: "Knowledge Brain rejected the API key (401).",
       sources: [],
     };
   }
 
-  if (response.status === 402 || payload?.code === "billing") {
+  if (status === 402 || payload?.code === "billing") {
     return {
       ok: false,
       failure: "billing",
-      status: response.status,
+      status,
       message: "Knowledge Brain could not answer because the model account is unavailable (402).",
       sources: asSources(payload?.sources),
     };
   }
 
-  if (!response.ok || payload === null) {
+  if (status < 200 || status >= 300 || payload === null) {
     return {
       ok: false,
       failure: payload === null ? "invalid_response" : "http_error",
-      status: response.status,
+      status,
       message: `Knowledge Brain returned HTTP ${response.status}${payload?.code ? ` (${String(payload.code)})` : ""}.`,
       sources: asSources(payload?.sources),
     };
@@ -155,7 +233,7 @@ export async function queryKnowledge(
     return {
       ok: false,
       failure: "invalid_response",
-      status: response.status,
+      status,
       message: `Knowledge Brain response was incomplete (${code}). No reply was drafted.`,
       sources: asSources(payload.sources),
     };

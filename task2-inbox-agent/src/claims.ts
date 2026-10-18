@@ -2,6 +2,7 @@ import { z } from "zod";
 import type { AppEnv } from "./env.js";
 import { completeText } from "./llm.js";
 import { extractJsonObject, loadPrompt } from "./prompts/load.js";
+import { PROMPT_VERSION } from "./prompts/version.js";
 
 export type UnsupportedClaim = {
   text: string;
@@ -95,8 +96,13 @@ export function applyClaimEdits(draft: string, claims: UnsupportedClaim[]): stri
   return next;
 }
 
-async function modelUnsupported(env: AppEnv, draft: string, support: string): Promise<UnsupportedClaim[]> {
-  const system = loadPrompt("claims");
+async function modelUnsupported(
+  env: AppEnv,
+  draft: string,
+  support: string,
+  promptVersion: string,
+): Promise<UnsupportedClaim[]> {
+  const system = loadPrompt("claims", promptVersion);
   const user = `SUPPORT (the only allowed facts):\n${support.slice(0, 6000)}\n\nDRAFT:\n${draft}`;
   try {
     const text = await completeText(env, system, user, 700);
@@ -117,6 +123,7 @@ export async function reviewClaims(
   draft: string,
   support: string,
   sources: string[],
+  promptVersion = PROMPT_VERSION,
 ): Promise<ClaimCheckResult> {
   const before = draft.trim();
   if (!before) {
@@ -124,7 +131,7 @@ export async function reviewClaims(
   }
   const supportBlob = `${support}\n${sources.join("\n")}`;
   const local = deterministicClaims(before, supportBlob);
-  const fromModel = await modelUnsupported(env, before, supportBlob);
+  const fromModel = await modelUnsupported(env, before, supportBlob, promptVersion);
   const merged: UnsupportedClaim[] = [...local];
   for (const claim of fromModel) {
     const already = merged.some((item) => before.includes(claim.text) && item.text.includes(claim.text.slice(0, 40)));

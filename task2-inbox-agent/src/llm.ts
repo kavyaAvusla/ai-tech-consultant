@@ -12,22 +12,62 @@ export class ModelCallError extends Error {
   }
 }
 
+export type TokenUsage = {
+  inputTokens: number;
+  outputTokens: number;
+};
+
+let tokenUsage: TokenUsage = { inputTokens: 0, outputTokens: 0 };
+
+export function resetTokenUsage(): void {
+  tokenUsage = { inputTokens: 0, outputTokens: 0 };
+}
+
+export function readTokenUsage(): TokenUsage {
+  return { ...tokenUsage };
+}
+
+function thinkingFor(modelName: string): { type: "disabled" } | { type: "between_tools" } {
+  if (modelName.includes("sonnet-5-5") || modelName.includes("sonnet-5.5")) {
+    return { type: "between_tools" };
+  }
+  return { type: "disabled" };
+}
+
 export async function completeText(
   env: AppEnv,
   system: string,
   user: string,
   maxTokens = 700,
 ): Promise<string> {
-  const client = new Anthropic({ apiKey: env.anthropicApiKey, timeout: 60_000 });
+  const client = new Anthropic({ apiKey: env.anthropicApiKey, timeout: 45_000, maxRetries: 0 });
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 45_000);
   try {
-    const response = await client.messages.create({
-      model: env.modelName,
-      max_tokens: maxTokens,
-      thinking: { type: "disabled" },
-      output_config: { effort: "low" },
-      system,
-      messages: [{ role: "user", content: user }],
-    } as Anthropic.MessageCreateParamsNonStreaming);
+    const response = await Promise.race([
+      client.messages.create(
+        {
+          model: env.modelName,
+          max_tokens: maxTokens,
+          thinking: thinkingFor(env.modelName),
+          output_config: { effort: "low" },
+          system,
+          messages: [{ role: "user", content: user }],
+        } as Anthropic.MessageCreateParamsNonStreaming,
+        { timeout: 45_000, maxRetries: 0, signal: controller.signal },
+      ),
+      new Promise<never>((_, reject) => {
+        controller.signal.addEventListener(
+          "abort",
+          () => reject(new ModelCallError("timeout", "The model request timed out.")),
+          { once: true },
+        );
+      }),
+    ]);
+    tokenUsage = {
+      inputTokens: tokenUsage.inputTokens + (response.usage?.input_tokens ?? 0),
+      outputTokens: tokenUsage.outputTokens + (response.usage?.output_tokens ?? 0),
+    };
     const text = response.content
       .filter((block): block is Anthropic.TextBlock => block.type === "text")
       .map((block) => block.text)
@@ -56,5 +96,7 @@ export async function completeText(
       throw new ModelCallError("billing", "Anthropic could not run the model (billing).");
     }
     throw new ModelCallError("model_error", `Model request failed: ${safe.slice(0, 240)}`);
+  } finally {
+    clearTimeout(timer);
   }
 }
