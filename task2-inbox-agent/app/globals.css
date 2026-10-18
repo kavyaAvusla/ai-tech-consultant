@@ -1,7 +1,7 @@
 :root {
   color-scheme: light;
   font-family: Georgia, "Times New Roman", serif;
-  background: #f6f4ef;
+  background: #f4f1ea;
   color: #1c1915;
 }
 
@@ -9,12 +9,159 @@ body {
   margin: 0;
 }
 
-main {
-  max-width: 40rem;
-  margin: 4rem auto;
-  padding: 0 1.25rem;
+a {
+  color: #1f4b3a;
 }
 
-code {
-  font-family: Consolas, monospace;
+header.site {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: baseline;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #d9d2c5;
+  background: #fffdf8;
+}
+
+header.site nav {
+  display: flex;
+  gap: 1rem;
+}
+
+main.shell {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1rem 1.25rem 3rem;
+}
+
+.banner {
+  padding: 0.75rem 1rem;
+  margin: 0 0 1rem;
+  background: #8c1d1d;
+  color: #fffaf7;
+  font-weight: 700;
+}
+
+.banner.ok {
+  background: #e7f2ea;
+  color: #1c1915;
+  font-weight: 400;
+}
+
+.sim-banner {
+  padding: 0.6rem 0.8rem;
+  background: #f3e2b3;
+  border: 1px solid #8a6a12;
+  font-weight: 700;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 1rem;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #d9d2c5;
+  background: #fffdf8;
+  max-height: 70vh;
+  overflow: auto;
+}
+
+.list button {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #eee6da;
+  padding: 0.7rem 0.8rem;
+  font: inherit;
+  cursor: pointer;
+}
+
+.list button[aria-current="true"] {
+  background: #efe7d6;
+}
+
+.detail {
+  background: #fffdf8;
+  border: 1px solid #d9d2c5;
+  padding: 1rem;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.8rem 0;
+}
+
+button.action,
+a.action {
+  font: inherit;
+  background: #1f4b3a;
+  color: #fffdf8;
+  border: 0;
+  padding: 0.45rem 0.7rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+button.action.secondary {
+  background: #5c4a32;
+}
+
+button.action:disabled {
+  background: #b7b1a6;
+  cursor: not-allowed;
+}
+
+textarea,
+input[type="text"] {
+  width: 100%;
+  font: inherit;
+  box-sizing: border-box;
+  margin: 0.3rem 0 0.6rem;
+}
+
+pre.block {
+  white-space: pre-wrap;
+  background: #f7f4ee;
+  padding: 0.7rem;
+  border: 1px solid #eee6da;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.5rem 0 1rem;
+  background: #fffdf8;
+}
+
+th,
+td {
+  border-bottom: 1px solid #eee6da;
+  text-align: left;
+  padding: 0.35rem 0.4rem;
+  vertical-align: top;
+  font-size: 0.95rem;
+}
+
+.error {
+  color: #8c1d1d;
+}
+
+@media (max-width: 800px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
 }

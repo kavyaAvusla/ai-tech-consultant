@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { reviewClaims } from "./claims.js";
 import type { AppEnv } from "./env.js";
 import { createKnowledgeClient, type KbResult } from "./kb/client.js";
 import { completeText, ModelCallError } from "./llm.js";
@@ -17,6 +18,7 @@ import {
 } from "./policy.js";
 import { classifyModelSchema, extractJsonObject, loadPrompt } from "./prompts/load.js";
 import { PROMPT_VERSION } from "./prompts/version.js";
+import { qualityCheck } from "./quality.js";
 import {
   pipelineOutputSchema,
   type PipelineOutput,
@@ -99,22 +101,36 @@ export async function runEmail(env: AppEnv, email: SupportEmail): Promise<Pipeli
     suggested = expertReply(summary);
   }
 
+  const support = [kb.ok ? kb.answer : "", email.subject, email.body].filter(Boolean).join("\n");
+  const claims = await reviewClaims(env, suggested, support, kb.ok ? kb.sources : []);
+  const quality = qualityCheck({
+    reply: claims.reply,
+    evidence,
+    kbOk: kb.ok,
+  });
+
   const candidate = {
     email_id: email.id,
     prompt_version: PROMPT_VERSION,
     category,
     urgency: classified.urgency,
     request_summary: summary,
-    suggested_reply: suggested,
-    sources: kb.ok ? kb.sources : kb.sources,
+    suggested_reply: claims.reply,
+    sources: kb.ok ? kb.sources : [],
     evidence,
+    evidence_text: kb.ok ? kb.answer : "",
     escalation_id: kb.ok ? kb.escalation_id : null,
     risk_level: risk,
     needs_human_approval: approval,
     next_action: nextAction,
-    kb_status: kb.ok ? "ok" : kb.failure,
+    kb_status: kb.ok ? ("ok" as const) : kb.failure,
     failure_reason: kb.ok ? null : kb.message,
     prompt_injection_detected: injection,
+    model_name: env.modelName,
+    draft_before_claim_check: claims.before,
+    unsupported_claims: claims.unsupported_claims,
+    claim_check_passed: claims.passed,
+    quality_check_passed: quality.passed,
   };
 
   const parsed = pipelineOutputSchema.safeParse(candidate);

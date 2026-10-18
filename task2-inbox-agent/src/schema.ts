@@ -66,6 +66,18 @@ export const pipelineOutputSchema = z
     kb_status: kbStatusSchema,
     failure_reason: z.string().nullable(),
     prompt_injection_detected: z.boolean(),
+    model_name: z.string().min(1),
+    evidence_text: z.string().max(8000),
+    draft_before_claim_check: z.string().max(8000),
+    unsupported_claims: z.array(
+      z.object({
+        text: z.string(),
+        action: z.enum(["removed", "rewritten"]),
+        replacement: z.string().optional(),
+      }),
+    ),
+    claim_check_passed: z.boolean(),
+    quality_check_passed: z.boolean(),
   })
   .superRefine((value, ctx) => {
     if (DATE_IN_TEXT.test(value.next_action)) {

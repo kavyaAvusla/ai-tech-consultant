@@ -1,5 +1,6 @@
 import { loadEmails, selectEmails } from "../dataset.js";
 import { loadEnv, redactSecrets, requireEnv } from "../env.js";
+import { maskPii } from "../pii.js";
 import { isFailure, runEmail } from "../pipeline.js";
 import { PROMPT_VERSION } from "../prompts/version.js";
 import { openOutputStore, recordOutput } from "../store.js";
@@ -96,10 +97,21 @@ async function main(): Promise<void> {
     console.log(`  sources: ${row.sources.length > 0 ? row.sources.join(" | ") : "(none)"}`);
     if (row.escalation_id) console.log(`  escalation_id: ${row.escalation_id}`);
     if (row.failure_reason) {
-      console.log(`  failure: ${redactSecrets(row.failure_reason, env)}`);
+      console.log(`  failure: ${maskPii(redactSecrets(row.failure_reason, env))}`);
     } else {
-      const preview = row.suggested_reply.replace(/\s+/g, " ").slice(0, 280);
-      console.log(`  reply: ${preview}`);
+      console.log(`  claims: ${row.unsupported_claims.length}  claim_ok=${row.claim_check_passed}`);
+      if (row.email_id === "ts-03" || row.unsupported_claims.length > 0) {
+        console.log("  BEFORE claim check:");
+        console.log(maskPii(row.draft_before_claim_check));
+        console.log("  AFTER claim check:");
+        console.log(maskPii(row.suggested_reply));
+        for (const claim of row.unsupported_claims) {
+          console.log(`  unsupported (${claim.action}): ${maskPii(claim.text)}`);
+        }
+      } else {
+        const preview = maskPii(row.suggested_reply).replace(/\s+/g, " ").slice(0, 280);
+        console.log(`  reply: ${preview}`);
+      }
     }
   }
 
