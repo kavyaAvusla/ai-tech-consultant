@@ -1,0 +1,20 @@
+:root {
+  color-scheme: light;
+  font-family: Georgia, "Times New Roman", serif;
+  background: #f6f4ef;
+  color: #1c1915;
+}
+
+body {
+  margin: 0;
+}
+
+main {
+  max-width: 40rem;
+  margin: 4rem auto;
+  padding: 0 1.25rem;
+}
+
+code {
+  font-family: Consolas, monospace;
+}

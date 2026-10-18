@@ -27,6 +27,7 @@ chroma.sqlite3
 *.bin
 
 node_modules/
+.next/
 
 how_to.html
 sample_article.html
