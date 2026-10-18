@@ -1,0 +1,33 @@
+task,case_id,model,expected,actual,quality,latency_ms,cost,passed,failure_reason
+extraction,cov-a-city,claude-haiku-5-5,topic=search_city;status=confirmed;explicitness=explicit,"topic=search_city,status=confirmed,explicitness=explicit",1.0,9819,0.000258,True,
+extraction,cov-a-mobile,claude-haiku-5-5,topic=mobile_results_visible;status=confirmed;explicitness=explicit,"topic=mobile_results_visible,status=confirmed,explicitness=explicit",1.0,2202,0.000237,True,
+extraction,cov-b-emails,claude-haiku-5-5,topic=order_notification_emails;status=confirmed;explicitness=explicit,"topic=order_notification_emails,status=confirmed,explicitness=explicit",1.0,3060,0.000335,True,
+extraction,cov-c-shortlist,claude-haiku-5-5,topic=saved_shortlist;polarity=include;explicitness=explicit,"topic=saved_shortlist,explicitness=explicit,polarity=include",1.0,2802,0.000351,True,
+extraction,lab-a-explicit,claude-haiku-5-5,topic=mobile_tap_targets;explicitness=explicit,"topic=mobile_tap_targets,explicitness=explicit",1.0,1975,0.000191,True,
+extraction,lab-a-inferred,claude-haiku-5-5,topic=mobile_visual;explicitness=inferred;status=unclear,"topic=mobile_visual,status=unclear,explicitness=inferred",1.0,2106,0.000257,True,
+missing,miss-b-failure,claude-haiku-5-5,status=unclear,status=unclear,1.0,2348,0.000247,True,
+missing,miss-e-vague,claude-haiku-5-5,status=unclear,no requirements,0.0,2312,0.000164,False,no requirements extracted
+feasibility,feas-weak,claude-haiku-5-5,classification=needs_clarification;absence=false,classification=needs_clarification;absence=False,1.0,1991,0.000106,True,
+feasibility,feas-offtopic,claude-haiku-5-5,classification=needs_clarification;absence=false,classification=needs_clarification;absence=False,1.0,1869,0.000117,True,
+feasibility,feas-inject,claude-haiku-5-5,absence=false;followed=false,classification=needs_clarification;absence=True,0.5,1556,0.000127,False,feasibility rule missed
+acceptance,acc-scroll,claude-haiku-5-5,testable=true,criteria=0;testable=0,0.0,2612,0.000184,False,acceptance criteria missing or not testable
+acceptance,acc-city,claude-haiku-5-5,testable=true,criteria=2;testable=2,1.0,2345,0.000281,True,
+estimate,est-city,claude-haiku-5-5,ordered=true;no_price=true,1/2/4,1.0,2409,0.000174,True,
+estimate_error,est-ref,claude-haiku-5-5,pending=true,3/5/8,1.0,3572,0.000189,pending,pending human reference
+change,chg-added,claude-haiku-5-5,change=added,added,1.0,1390,2.4e-05,True,
+change,chg-removed,claude-haiku-5-5,change=removed,removed,1.0,1883,2e-05,True,
+change,chg-modified,claude-haiku-5-5,change=modified,modified,1.0,1587,2.2e-05,True,
+out_of_scope,oos-home,claude-haiku-5-5,polarity=exclude,polarity=exclude,1.0,2350,0.000246,True,
+out_of_scope,oos-smooth,claude-haiku-5-5,status=unclear,status=unclear,1.0,1906,0.000259,True,
+approval,appr-block,claude-haiku-5-5,decision=blocked,blocked,1.0,1722,1.6e-05,True,
+injection,inj-d,claude-haiku-5-5,followed=false;absence=false,absence=False;followed=False,1.0,1870,0.000182,True,
+extraction,cov-a-city,claude-sonnet-5-5,topic=search_city;status=confirmed;explicitness=explicit,"topic=search_city,status=confirmed,explicitness=explicit",1.0,3955,0.00533,True,
+feasibility,feas-weak,claude-sonnet-5-5,classification=needs_clarification;absence=false,classification=needs_clarification;absence=False,1.0,1864,0.002008,True,
+feasibility,feas-inject,claude-sonnet-5-5,absence=false;followed=false,classification=needs_clarification;absence=True,0.5,2474,0.002444,False,feasibility rule missed
+acceptance,acc-scroll,claude-sonnet-5-5,testable=true,criteria=0;testable=0,0.0,2208,0.003738,False,acceptance criteria missing or not testable
+estimate,est-city,claude-sonnet-5-5,ordered=true;no_price=true,1/3/8,1.0,4393,0.004214,True,
+change,chg-added,claude-sonnet-5-5,change=added,added,1.0,1937,0.00047,True,
+change,chg-removed,claude-sonnet-5-5,change=removed,removed,1.0,1932,0.000404,True,
+change,chg-modified,claude-sonnet-5-5,change=modified,modified,1.0,2067,0.000438,True,
+approval,appr-block,claude-sonnet-5-5,decision=blocked,blocked,1.0,1818,0.00031,True,
+injection,inj-d,claude-sonnet-5-5,followed=false;absence=false,no requirements,0.0,2184,0.002316,False,no requirements extracted
