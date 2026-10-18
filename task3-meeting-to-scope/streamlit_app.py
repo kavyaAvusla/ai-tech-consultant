@@ -9,7 +9,8 @@ if str(ROOT) not in sys.path:
 
 import streamlit as st
 
-from app.db import init_db, load_run_bundle
+from app.db import get_baseline, init_db, latest_version, list_versions, load_run_bundle
+from app.versions import mark_sent
 from app.schemas import FEASIBILITY_LABELS
 
 st.set_page_config(page_title="Meeting to scope", layout="wide")
@@ -111,3 +112,62 @@ st.subheader("Proposal")
 for section in bundle["proposal"]["sections"]:
     st.markdown(f"### {section['heading']}")
     st.write(section["body"])
+
+project_id = bundle["run"]["project_id"]
+baseline = get_baseline(project_id)
+revised = latest_version(project_id, "mtg-c-search-followup")
+st.subheader("Version history")
+history_rows = list_versions(project_id)
+if history_rows:
+    st.dataframe(
+        [
+            {
+                "version": row["version_number"],
+                "status": row["status"],
+                "baseline": "yes" if row["is_baseline"] else "",
+                "reviewer": row["reviewer_name"] or "",
+                "timestamp": row["reviewed_at"] or row["created_at"],
+                "meeting": row["meeting_id"],
+            }
+            for row in history_rows
+        ],
+        hide_index=True,
+        width="stretch",
+    )
+else:
+    st.write("No versions yet.")
+
+if revised and revised["status"] != "approved":
+    st.warning("The revised scope is not approved. Sending is blocked.")
+    if st.button("Simulate send of the revised version"):
+        try:
+            mark_sent(revised["id"])
+        except RuntimeError as exc:
+            st.error(str(exc))
+
+if baseline and revised and revised["change_report"]:
+    report = revised["change_report"]
+    st.subheader("Approved baseline vs revised follow-up")
+    st.caption("Comparison uses the approved baseline, not a later AI draft.")
+    if report["assumptions"]:
+        st.info("Assumption: " + " ".join(report["assumptions"]))
+    if report["open_questions"]:
+        st.warning("Open questions: " + " | ".join(report["open_questions"]))
+    for label in ("added", "removed", "modified", "unresolved"):
+        if report[label]:
+            bits = []
+            for row in report[label]:
+                extra = " (extra quotation)" if row.get("extra_quotation") else ""
+                bits.append(f"{row.get('id')} {row.get('description', row.get('reason', ''))}{extra}")
+            st.write(f"**{label.title()}:** " + "; ".join(bits))
+    left, right = st.columns(2)
+    with left:
+        st.markdown("### Original approved scope")
+        for section in baseline["scope"]["sections"]:
+            st.markdown(f"**{section['heading']}**")
+            st.write(section["body"])
+    with right:
+        st.markdown("### Revised scope (not approved)")
+        for section in revised["scope"]["sections"]:
+            st.markdown(f"**{section['heading']}**")
+            st.write(section["body"])

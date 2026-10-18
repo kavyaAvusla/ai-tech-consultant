@@ -98,6 +98,23 @@ def init_db() -> None:
               payload_json TEXT NOT NULL,
               stored_at TEXT NOT NULL
             );
+            CREATE TABLE IF NOT EXISTS document_versions (
+              id INTEGER PRIMARY KEY,
+              project_id TEXT NOT NULL,
+              meeting_id TEXT NOT NULL,
+              run_id INTEGER,
+              version_number INTEGER NOT NULL,
+              status TEXT NOT NULL,
+              reviewer_name TEXT,
+              reviewed_at TEXT,
+              created_at TEXT NOT NULL,
+              scope_json TEXT NOT NULL,
+              proposal_json TEXT NOT NULL,
+              requirements_json TEXT NOT NULL,
+              estimate_json TEXT NOT NULL,
+              change_report_json TEXT,
+              is_baseline INTEGER NOT NULL DEFAULT 0
+            );
             """
         )
 
@@ -308,3 +325,140 @@ def load_run_bundle(meeting_id: str) -> dict[str, Any] | None:
             "estimate": json.loads(estimate["payload_json"]) if estimate else None,
             "proposal": json.loads(proposal["payload_json"]) if proposal else None,
         }
+
+
+def next_version_number(project_id: str) -> int:
+    with connect() as conn:
+        row = conn.execute(
+            "SELECT COALESCE(MAX(version_number), 0) AS n FROM document_versions WHERE project_id = ?",
+            (project_id,),
+        ).fetchone()
+    return int(row["n"]) + 1
+
+
+def insert_version(row: dict[str, Any]) -> int:
+    with connect() as conn:
+        if row.get("is_baseline"):
+            conn.execute(
+                "UPDATE document_versions SET is_baseline = 0 WHERE project_id = ?",
+                (row["project_id"],),
+            )
+        cur = conn.execute(
+            """
+            INSERT INTO document_versions (
+              project_id, meeting_id, run_id, version_number, status, reviewer_name,
+              reviewed_at, created_at, scope_json, proposal_json, requirements_json,
+              estimate_json, change_report_json, is_baseline
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                row["project_id"],
+                row["meeting_id"],
+                row.get("run_id"),
+                row["version_number"],
+                row["status"],
+                row.get("reviewer_name"),
+                row.get("reviewed_at"),
+                row["created_at"],
+                json.dumps(row["scope"], ensure_ascii=True),
+                json.dumps(row["proposal"], ensure_ascii=True),
+                json.dumps(row["requirements"], ensure_ascii=True),
+                json.dumps(row["estimate"], ensure_ascii=True),
+                json.dumps(row.get("change_report"), ensure_ascii=True) if row.get("change_report") else None,
+                1 if row.get("is_baseline") else 0,
+            ),
+        )
+        return int(cur.lastrowid)
+
+
+def list_versions(project_id: str) -> list[dict[str, Any]]:
+    with connect() as conn:
+        rows = conn.execute(
+            """
+            SELECT id, project_id, meeting_id, run_id, version_number, status,
+                   reviewer_name, reviewed_at, created_at, is_baseline, change_report_json
+            FROM document_versions
+            WHERE project_id = ?
+            ORDER BY version_number
+            """,
+            (project_id,),
+        ).fetchall()
+    result = []
+    for row in rows:
+        item = dict(row)
+        raw = item.pop("change_report_json")
+        item["change_report"] = json.loads(raw) if raw else None
+        result.append(item)
+    return result
+
+
+def get_version(version_id: int) -> dict[str, Any] | None:
+    with connect() as conn:
+        row = conn.execute("SELECT * FROM document_versions WHERE id = ?", (version_id,)).fetchone()
+    if row is None:
+        return None
+    return _unpack_version(row)
+
+
+def get_baseline(project_id: str) -> dict[str, Any] | None:
+    with connect() as conn:
+        row = conn.execute(
+            """
+            SELECT * FROM document_versions
+            WHERE project_id = ? AND is_baseline = 1 AND status = 'approved'
+            ORDER BY version_number DESC LIMIT 1
+            """,
+            (project_id,),
+        ).fetchone()
+    if row is None:
+        return None
+    return _unpack_version(row)
+
+
+def latest_version(project_id: str, meeting_id: str | None = None) -> dict[str, Any] | None:
+    with connect() as conn:
+        if meeting_id:
+            row = conn.execute(
+                """
+                SELECT * FROM document_versions
+                WHERE project_id = ? AND meeting_id = ?
+                ORDER BY version_number DESC LIMIT 1
+                """,
+                (project_id, meeting_id),
+            ).fetchone()
+        else:
+            row = conn.execute(
+                """
+                SELECT * FROM document_versions
+                WHERE project_id = ?
+                ORDER BY version_number DESC LIMIT 1
+                """,
+                (project_id,),
+            ).fetchone()
+    if row is None:
+        return None
+    return _unpack_version(row)
+
+
+def set_version_status(version_id: int, status: str, reviewer_name: str | None, reviewed_at: str | None) -> None:
+    with connect() as conn:
+        conn.execute(
+            """
+            UPDATE document_versions
+            SET status = ?, reviewer_name = COALESCE(?, reviewer_name),
+                reviewed_at = COALESCE(?, reviewed_at)
+            WHERE id = ?
+            """,
+            (status, reviewer_name, reviewed_at, version_id),
+        )
+
+
+def _unpack_version(row: sqlite3.Row) -> dict[str, Any]:
+    item = dict(row)
+    item["scope"] = json.loads(item.pop("scope_json"))
+    item["proposal"] = json.loads(item.pop("proposal_json"))
+    item["requirements"] = json.loads(item.pop("requirements_json"))
+    item["estimate"] = json.loads(item.pop("estimate_json"))
+    raw = item.pop("change_report_json")
+    item["change_report"] = json.loads(raw) if raw else None
+    return item
