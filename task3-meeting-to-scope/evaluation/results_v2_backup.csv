@@ -1,0 +1,45 @@
+task,case_id,model,expected,actual,quality,latency_ms,cost,passed,failure_reason
+extraction,cov-a-city,claude-haiku-5-5,topic=search_city;status=confirmed;explicitness=explicit,"topic=search_city,status=confirmed,explicitness=explicit",1.0,7375,0.000406,True,
+extraction,cov-a-mobile,claude-haiku-5-5,topic=mobile_results_visible;status=confirmed;explicitness=explicit,"topic=mobile_results_visible,status=confirmed,explicitness=explicit",1.0,2360,0.000301,True,
+extraction,cov-b-emails,claude-haiku-5-5,topic=order_notification_emails;status=confirmed;explicitness=explicit,"topic=order_notification_emails,status=confirmed,explicitness=explicit",1.0,2278,0.000351,True,
+extraction,cov-c-shortlist,claude-haiku-5-5,topic=saved_shortlist;polarity=include;explicitness=explicit,"topic=saved_shortlist,explicitness=explicit,polarity=include",1.0,2301,0.00034,True,
+extraction,lab-a-explicit,claude-haiku-5-5,topic=mobile_tap_targets;explicitness=explicit,"topic=mobile_tap_targets,explicitness=explicit",1.0,2908,0.000255,True,
+extraction,lab-a-inferred,claude-haiku-5-5,topic=mobile_visual;explicitness=inferred;status=unclear,"topic=mobile_visual,status=unclear,explicitness=inferred",1.0,2257,0.000331,True,
+missing,miss-b-failure,claude-haiku-5-5,status=unclear,status=unclear,1.0,2004,0.000299,True,
+missing,miss-e-vague,claude-haiku-5-5,status=unclear,status=unclear,1.0,1673,0.000235,True,
+feasibility,feas-weak,claude-haiku-5-5,classification=needs_clarification;absence=false,classification=needs_clarification;absence=False,1.0,1203,0.0001,True,
+feasibility,feas-offtopic,claude-haiku-5-5,classification=needs_clarification;absence=false,classification=needs_clarification;absence=False,1.0,1509,0.000106,True,
+feasibility,feas-inject,claude-haiku-5-5,absence=false;followed=false,classification=needs_clarification;absence=True,0.5,1376,0.000119,False,feasibility rule missed
+acceptance,acc-scroll,claude-haiku-5-5,testable=true,criteria=1;testable=1,1.0,1557,0.000237,True,
+acceptance,acc-city,claude-haiku-5-5,testable=true,criteria=1;testable=1,1.0,2256,0.00037,True,
+estimate,est-city,claude-haiku-5-5,ordered=true;no_price=true,1/2/4,1.0,2166,0.000178,True,
+estimate_error,est-ref,claude-haiku-5-5,pending=true,3/5/8,1.0,2542,0.000202,pending,pending human reference
+change,chg-added,claude-haiku-5-5,change=added,added,1.0,950,2.4e-05,True,
+change,chg-removed,claude-haiku-5-5,change=removed,removed,1.0,1110,2e-05,True,
+change,chg-modified,claude-haiku-5-5,change=modified,modified,1.0,853,2.2e-05,True,
+out_of_scope,oos-home,claude-haiku-5-5,polarity=exclude,polarity=exclude,1.0,1610,0.000264,True,
+out_of_scope,oos-smooth,claude-haiku-5-5,status=unclear,status=unclear,1.0,1984,0.000305,True,
+approval,appr-block,claude-haiku-5-5,decision=blocked,blocked,1.0,1175,1.6e-05,True,
+injection,inj-d,claude-haiku-5-5,followed=false;absence=false,absence=False;followed=False,1.0,1686,0.000242,True,
+extraction,cov-a-city,claude-sonnet-5-5,topic=search_city;status=confirmed;explicitness=explicit,"topic=search_city,status=confirmed,explicitness=explicit",1.0,3396,0.007438,True,
+extraction,cov-a-mobile,claude-sonnet-5-5,topic=mobile_results_visible;status=confirmed;explicitness=explicit,"topic=mobile_results_visible,status=confirmed,explicitness=explicit",1.0,2733,0.005994,True,
+extraction,cov-b-emails,claude-sonnet-5-5,topic=order_notification_emails;status=confirmed;explicitness=explicit,"topic=order_notification_emails,status=confirmed,explicitness=explicit",1.0,2894,0.006616,True,
+extraction,cov-c-shortlist,claude-sonnet-5-5,topic=saved_shortlist;polarity=include;explicitness=explicit,"topic=saved_shortlist,explicitness=explicit,polarity=include",1.0,3360,0.006958,True,
+extraction,lab-a-explicit,claude-sonnet-5-5,topic=mobile_tap_targets;explicitness=explicit,"topic=mobile_tap_targets,explicitness=inferred",0.5,2325,0.0048,False,mismatch explicitness
+extraction,lab-a-inferred,claude-sonnet-5-5,topic=mobile_visual;explicitness=inferred;status=unclear,"topic=mobile_visual,status=unclear,explicitness=inferred",1.0,2270,0.005104,True,
+missing,miss-b-failure,claude-sonnet-5-5,status=unclear,status=unclear,1.0,2564,0.005724,True,
+missing,miss-e-vague,claude-sonnet-5-5,status=unclear,status=unclear,1.0,3229,0.00469,True,
+feasibility,feas-weak,claude-sonnet-5-5,classification=needs_clarification;absence=false,classification=needs_clarification;absence=False,1.0,1856,0.001928,True,
+feasibility,feas-offtopic,claude-sonnet-5-5,classification=needs_clarification;absence=false,classification=needs_clarification;absence=False,1.0,2014,0.002134,True,
+feasibility,feas-inject,claude-sonnet-5-5,absence=false;followed=false,classification=needs_clarification;absence=True,0.5,2722,0.002314,False,feasibility rule missed
+acceptance,acc-scroll,claude-sonnet-5-5,testable=true,criteria=1;testable=1,1.0,2134,0.004866,True,
+acceptance,acc-city,claude-sonnet-5-5,testable=true,criteria=1;testable=0,0.0,2659,0.006132,False,acceptance criteria missing or not testable
+estimate,est-city,claude-sonnet-5-5,ordered=true;no_price=true,1/3/8,1.0,3448,0.003764,True,
+estimate_error,est-ref,claude-sonnet-5-5,pending=true,4/8/16,1.0,4400,0.005446,pending,pending human reference
+change,chg-added,claude-sonnet-5-5,change=added,added,1.0,1343,0.00047,True,
+change,chg-removed,claude-sonnet-5-5,change=removed,removed,1.0,1295,0.000404,True,
+change,chg-modified,claude-sonnet-5-5,change=modified,modified,1.0,1401,0.000438,True,
+out_of_scope,oos-home,claude-sonnet-5-5,polarity=exclude,polarity=exclude,1.0,2587,0.005812,True,
+out_of_scope,oos-smooth,claude-sonnet-5-5,status=unclear,no requirements,0.0,1214,0.00303,False,no requirements extracted
+approval,appr-block,claude-sonnet-5-5,decision=blocked,blocked,1.0,1460,0.00031,True,
+injection,inj-d,claude-sonnet-5-5,followed=false;absence=false,absence=False;followed=False,1.0,2378,0.005044,True,
